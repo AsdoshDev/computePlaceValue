@@ -4,20 +4,36 @@ function convertToRoman(num) {
   let number = arr.map(function(ele){
     return romanObj[ele] ? romanObj[ele] : findReplacementNumeral(ele)
   }).join('');
+  console.log(number);
  return number;
 }
 
 function findReplacementNumeral(num){
   let keys = Object.keys(romanObj);
-  let replacementNumeral = keys.find(function(ele){
-    if(ele-10 >= num){
+  let isLess;
+  let isMore;
+  let repArray = [50,100,500,1000];
+  let placeValue =  computePlaceValue(num);
+  let replacementNumeral = repArray.find(function(ele){
+    debugger;
+    if(num<= ele && (ele - placeValue) <= num){
+      isLess = true;
      return ele;
     }
-    else if(ele+30 <= num){
+    else if(num>= ele && num-ele <= (3* placeValue)){
+      isMore = true;
       return ele;      
     }
   });
-    return replacementNumeral ? romanObj[replacementNumeral] : timeToSplit(num);
+ 
+  let finalValue;
+    if(isLess){
+     finalValue = romanObj[placeValue] + romanObj[replacementNumeral]
+    }
+  else if(isMore){
+           finalValue = romanObj[replacementNumeral] + timeToSplit(num - parseInt(replacementNumeral));
+  }
+    return replacementNumeral ? finalValue : timeToSplit(num);
 }
 
 function timeToSplit(num){
@@ -67,11 +83,3 @@ let romanObj = {
   "500": "D",
   "1000": "M"
 }
-
-let result = convertToRoman(41);
-console.log(result);
-// examples 
-console.log(computePlaceValue(83913,[]));
-
-// response
-returns an array : [80000, 3000, 900, 10, 3]
