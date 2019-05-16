@@ -17,7 +17,7 @@ function findReplacementNumeral(num){
       isLess = true;
      return ele;
     }
-    else if(num>= ele && num-ele <= (3* placeValue){
+    else if(num>= ele && num-ele <= (3* placeValue)){
       isMore = true;
       return ele;      
     }
