@@ -1,10 +1,8 @@
 function convertToRoman(num) {
   let arr = generatePlaceValues(num);
-  console.log(arr);
   let number = arr.map(function(ele){
     return romanObj[ele] ? romanObj[ele] : findReplacementNumeral(ele)
   }).join('');
-  console.log(number);
  return number;
 }
 
@@ -12,15 +10,14 @@ function findReplacementNumeral(num){
   let keys = Object.keys(romanObj);
   let isLess;
   let isMore;
-  let repArray = [50,100,500,1000];
+  let repArray = [1000,500,100,50];
   let placeValue =  computePlaceValue(num);
   let replacementNumeral = repArray.find(function(ele){
-    debugger;
     if(num<= ele && (ele - placeValue) <= num){
       isLess = true;
      return ele;
     }
-    else if(num>= ele && num-ele <= (3* placeValue)){
+    else if(num>= ele && num-ele <= (3* placeValue){
       isMore = true;
       return ele;      
     }
@@ -31,7 +28,7 @@ function findReplacementNumeral(num){
      finalValue = romanObj[placeValue] + romanObj[replacementNumeral]
     }
   else if(isMore){
-           finalValue = romanObj[replacementNumeral] + timeToSplit(num - parseInt(replacementNumeral));
+           finalValue = romanObj[replacementNumeral] + convertToRoman(num - parseInt(replacementNumeral));
   }
     return replacementNumeral ? finalValue : timeToSplit(num);
 }
